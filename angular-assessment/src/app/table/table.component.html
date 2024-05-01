@@ -1,0 +1,35 @@
+<!-- src/app/table/table.component.html -->
+
+<div class="table-container">
+  <input
+    type="text"
+    placeholder="Search customer"
+    (keyup.enter)="filterByName(nameInput.value)"
+    #nameInput
+  />
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Income</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.age }}</td>
+        <td>{{ customer.income }}</td>
+        <td>
+          <ng-container
+            *ngIf="customer.age >= 18 && customer.income >= 3000; else fail"
+          >
+            <button (click)="applyCreditCard(customer.id)">PASS</button>
+          </ng-container>
+          <ng-template #fail>FAIL</ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
